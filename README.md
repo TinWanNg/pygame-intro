@@ -1,4 +1,4 @@
-# Roadmao
+# Roadmap
 ## Phase 1
 Have a basic functioning runner game including these elements:
 - background
