@@ -37,7 +37,7 @@ character_surface = pygame.transform.scale(character_surface, (80, 70.4))
 skeleton_surface = pygame.image.load("media/skeleton.png").convert_alpha()
 skeleton_surface = pygame.transform.scale(skeleton_surface, (60, 50.4))
 
-character_position_x = 0
+move_x = init_move_x = size_x-100
 
 
 while True:
@@ -46,17 +46,19 @@ while True:
         if event.type==pygame.QUIT:
             pygame.quit()
             exit()
-
+    
+    # static surfaces
     screen.blit(planet_surface, (0,0))
     screen.blit(ground_surface, (0,size_y-100))
     screen.blit(text_surface, (25,25))
+    screen.blit(character_surface, (100,size_y-130))
 
-    if character_position_x >= size_x:
-        character_position_x = 0
+    # moving surfaces
+    if move_x <= 0:
+        move_x = init_move_x
     else:
-        character_position_x += 3.5
-    screen.blit(character_surface, (character_position_x,size_y-130))
-    screen.blit(skeleton_surface, (size_x-100,size_y-130))
+        move_x -= 3
+    screen.blit(skeleton_surface, (move_x,size_y-130))
     
     pygame.display.update()  # -> would keep the window forever open if wo the above block
     clock.tick(60)  # set max 60 loops per sec
