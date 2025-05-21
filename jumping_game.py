@@ -24,13 +24,16 @@ ground_surface = pygame.image.load("media/grey_ground.png").convert()
 ground_surface = pygame.transform.scale(ground_surface, (size_x, 100))
 
 # text
-text_surface = score_font.render("start adventure!", True, "White")
+score = 0
+score_surface = score_font.render(f"Score: {score}", True, "White")
+score_rect = score_surface.get_rect(topleft=(100, 25))
 
 """
 Rectangle
 - can be placed via (topleft, midbottom, etc.) compareed to plain number
 - useful for detecting collisions
 - use rectangle.left, for e.g., to measure its x position
+- for drawing
 """
 ground_y = size_y-100
 object_y = ground_y-30
@@ -49,18 +52,26 @@ while True:
         if event.type==pygame.QUIT:
             pygame.quit()
             exit()
+        #if event.type==pygame.MOUSEBUTTONUP:  # detect mouse click
+        #    if character_rect.collidepoint(event.pos()): pass
     
     # static surfaces
     screen.blit(planet_surface, (0,0))
     screen.blit(ground_surface, (0,ground_y))
-    screen.blit(text_surface, (25,25))
+
+    pygame.draw.rect(screen, "Pink", score_rect, 0, border_radius=12)   # background for the score, 0=fill, >0=line width
+    screen.blit(score_surface, score_rect)
+
     # moving surfaces
+    sekleton_rect.left -= 3
+    if sekleton_rect.left <= 0: sekleton_rect.left = size_x
     screen.blit(character_surface, character_rect)
     screen.blit(skeleton_surface, sekleton_rect)
     
-    sekleton_rect.left -= 3
-    if sekleton_rect.left <= 0: sekleton_rect.left = size_x
-    
+    # detect collision
+    #mouse_pos = pygame.mouse.get_pos()
+    #if character_rect.collidepoint(mouse_pos):
+    #    print("collision detected!")
     
     pygame.display.update()  # -> would keep the window forever open if wo the above block
     clock.tick(60)  # set max 60 loops per sec
