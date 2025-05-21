@@ -1,23 +1,21 @@
 import pygame
 from sys import exit
 
-"""
-1. Control animation frames/second via clock:
-too much would break, while too less makes it looks unnatural
-
-2. Surfaces
-- regular surfaces (rendered e.g. images (text is essentially image too!)) -> display surface -> players' eyes! :D
-- Texts = font (size and style) -> write on surface -> bilt the surface
-"""
-
+# basic setups
 pygame.init()
 size_x, size_y = 810, 348
 size = (size_x, size_y)  # (x, y)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("(`･Θ･´)")
-clock = pygame.time.Clock()
 score_font = pygame.font.Font(None, 25)
 
+clock = pygame.time.Clock()  # control fps -- too much would break, while too less makes it looks unnatural
+
+"""
+Surfaces
+- regular surfaces (rendered e.g. images (text is essentially image too!)) -> display surface -> players' eyes! :D
+- Texts = font (size and style) -> write on surface -> bilt the surface
+"""
 # image
 planet_surface = pygame.image.load("/Users/tinwanng/Dev-personal/pygame-intro/purple_planet.jpg").convert()
 planet_surface = pygame.transform.smoothscale(planet_surface, screen.get_size())
